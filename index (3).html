@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sm UzairAhmed — Web Developer</title>
+  <meta name="description" content="Sm UzairAhmed — Aspiring web developer. Building clean, functional websites. Open to internships and junior roles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0B3D91;
+      --blue-deep: #072A66;
+      --blue-soft: #E8F0FE;
+      --ink: #0F172A;
+      --ink-soft: #334155;
+      --muted: #64748B;
+      --line: rgba(15, 23, 42, 0.08);
+      --white: #FFFFFF;
+      --off: #F8FAFC;
+      --accent: #0B3D91;
+      --radius: 14px;
+      --font-display: "Instrument Serif", Georgia, serif;
+      --font-body: "Inter", system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── nav ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.15rem 2.25rem;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      background: var(--blue);
+      color: var(--white);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--blue-deep);
+      transform: translateY(-1px);
+    }
+
+    /* ─── layout ─── */
+    .wrap {
+      width: min(1080px, 90%);
+      margin-inline: auto;
+    }
+
+    section { padding: 6.5rem 0 5.5rem; position: relative; }
+
+    /* ─── reveal ─── */
+    .reveal {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(22px);
+      transition:
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    /* ─── hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5.5rem;
+      background: var(--blue);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 85% 20%, rgba(255,255,255,0.12), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(0,0,0,0.18), transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(1080px, 90%);
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6.5vw, 4.75rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.78);
+      max-width: 36ch;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--blue);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* hero visual panel */
+    .hero-panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 2rem 1.75rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-panel-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .stat-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ─── section common ─── */
+    .sec-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 2.85rem);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+      color: var(--ink);
+    }
+
+    .sec-lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 48ch;
+      margin-bottom: 2.75rem;
+    }
+
+    /* ─── about ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--ink-soft);
+      margin-bottom: 1.15rem;
+      font-size: 1.05rem;
+    }
+
+    .about-text strong { color: var(--ink); font-weight: 600; }
+
+    .about-side {
+      background: var(--off);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+
+    .about-side h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .about-side ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-side li {
+      display: flex;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      align-items: flex-start;
+    }
+
+    .about-side li::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      margin-top: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── skills ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.4rem;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(11, 61, 145, 0.25);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+      transform: translateY(-3px);
+    }
+
+    .skill-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .skill-meta {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+
+    .skill-bar {
+      height: 4px;
+      background: var(--blue-soft);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .skill-bar span {
+      display: block;
+      height: 100%;
+      background: var(--blue);
+      border-radius: 99px;
+    }
+
+    /* ─── projects ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.85rem 1.7rem;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      height: 100%;
+    }
+
+    .project-card:hover {
+      border-color: rgba(11, 61, 145, 0.3);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.07);
+      transform: translateY(-4px);
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.85rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-link {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .project-link span {
+      transition: transform 0.2s;
+    }
+
+    .project-card:hover .project-link span {
+      transform: translateX(3px);
+    }
+
+    /* ─── education ─── */
+    .edu-card {
+      max-width: 560px;
+      background: var(--off);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.85rem 1.9rem;
+    }
+
+    .edu-year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ─── contact ─── */
+    .contact {
+      background: var(--blue);
+      color: var(--white);
+      padding: 6.5rem 0;
+    }
+
+    .contact .sec-eyebrow { color: rgba(255,255,255,0.55); }
+    .contact .sec-title { color: var(--white); }
+    .contact .sec-lead { color: rgba(255,255,255,0.72); }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--white);
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    }
+
+    .contact-pill:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ─── footer ─── */
+    footer {
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ─── responsive ─── */
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.75rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero { min-height: auto; padding: 7rem 0 4.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="#" class="nav-logo">UzairAhmed</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy reveal">
+        <div class="hero-eyebrow">Portfolio · 2026</div>
+        <h1>Sm UzairAhmed<br /><em>Web Developer</em></h1>
+        <p class="hero-sub">
+          Second-year student building clean, functional websites.
+          Currently focused on HTML, CSS, and JavaScript — open to internships and junior roles.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-white">View projects</a>
+          <a href="#contact" class="btn btn-outline">Contact me</a>
+        </div>
+      </div>
+
+      <div class="hero-panel reveal" style="transition-delay: 0.12s">
+        <div class="hero-panel-label">At a glance</div>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-value">Web Development</div>
+            <div class="stat-label">Focus area</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-value">2nd Year</div>
+            <div class="stat-label">Currently studying</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-value">Open</div>
+            <div class="stat-label">Internships &amp; junior roles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-eyebrow reveal">About</div>
+      <h2 class="sec-title reveal">Building foundations, one project at a time</h2>
+      <p class="sec-lead reveal">
+        I’m early in my career and serious about getting better fast.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I’m <strong>Sm UzairAhmed</strong>, a second-year student learning web development.
+            I focus on writing clean HTML and CSS, understanding how the browser works,
+            and shipping small projects that actually do something.
+          </p>
+          <p>
+            I’m looking for an internship or junior role where I can contribute,
+            learn from experienced developers, and grow into a reliable frontend engineer.
+          </p>
+        </div>
+
+        <div class="about-side reveal" style="transition-delay: 0.1s">
+          <h3>What I’m looking for</h3>
+          <ul>
+            <li>Internship or junior web development role</li>
+            <li>Remote or on-site opportunities</li>
+            <li>Teams that value clear communication</li>
+            <li>Chances to ship real features, not just tutorials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="background: var(--off)">
+    <div class="wrap">
+      <div class="sec-eyebrow reveal">Skills</div>
+      <h2 class="sec-title reveal">What I’m learning right now</h2>
+      <p class="sec-lead reveal">
+        Core web technologies. Depth over a long list of frameworks.
+      </p>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-name">HTML</div>
+          <div class="skill-meta">Semantic structure &amp; accessibility basics</div>
+          <div class="skill-bar"><span style="width: 72%"></span></div>
+        </div>
+        <div class="skill-card reveal" style="transition-delay: 0.08s">
+          <div class="skill-name">CSS</div>
+          <div class="skill-meta">Layouts, responsive design, modern features</div>
+          <div class="skill-bar"><span style="width: 58%"></span></div>
+        </div>
+        <div class="skill-card reveal" style="transition-delay: 0.16s">
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-meta">DOM, logic, and interactivity</div>
+          <div class="skill-bar"><span style="width: 35%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-eyebrow reveal">Selected work</div>
+      <h2 class="sec-title reveal">Projects</h2>
+      <p class="sec-lead reveal">
+        Practice repositories while I level up. More coming as I build.
+      </p>
+
+      <div class="projects-grid">
+        <a href="https://github.com/uzairahmu-hue/niggr" target="_blank" rel="noopener" class="project-card reveal">
+          <div class="project-tag">Practice · GitHub</div>
+          <div class="project-title">Project 01</div>
+          <p class="project-desc">
+            Early practice repository while learning core web fundamentals.
+            (Rename this repo before sharing with recruiters — the current name is not professional.)
+          </p>
+          <span class="project-link">View on GitHub <span>→</span></span>
+        </a>
+
+        <a href="https://github.com/uzairahmu-hue/sussy-baka" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay: 0.1s">
+          <div class="project-tag">Practice · GitHub</div>
+          <div class="project-title">Project 02</div>
+          <p class="project-desc">
+            Another practice project. Replace this description with a clear one-liner about what it does once you’re ready.
+          </p>
+          <span class="project-link">View on GitHub <span>→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" style="background: var(--off)">
+    <div class="wrap">
+      <div class="sec-eyebrow reveal">Education</div>
+      <h2 class="sec-title reveal">Currently studying</h2>
+
+      <div class="edu-card reveal">
+        <div class="edu-year">2nd Year · In progress</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="sec-eyebrow reveal">Contact</div>
+      <h2 class="sec-title reveal">Let’s talk</h2>
+      <p class="sec-lead reveal">
+        Open to internships, junior roles, and conversations with teams who are building real products.
+      </p>
+
+      <div class="contact-row reveal">
+        <a href="mailto:uzair.ahmu@gmail.com" class="contact-pill">
+          ✉ Email
+        </a>
+        <a href="https://wa.me/923367872548" target="_blank" rel="noopener" class="contact-pill">
+          WhatsApp
+        </a>
+        <a href="tel:+923367872548" class="contact-pill">
+          ☎ Call
+        </a>
+        <a href="https://github.com/uzairahmu-hue" target="_blank" rel="noopener" class="contact-pill">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sm UzairAhmed · Built for real opportunities</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
+    );
+    reveals.forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
